@@ -12,6 +12,7 @@ category-encoders = "*"
 flask = "*"
 flask-sqlalchemy = "*"
 unicorn = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
