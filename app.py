@@ -5,7 +5,6 @@
     __version__ = 1.1
 """
 
-
 from flask import Flask, render_template, request, jsonify
 import pickle
 import pandas as pd
