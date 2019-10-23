@@ -3,8 +3,20 @@ from flask_sqlalchemy import SQLAlchemy
 import urllib.request
 import json
 import pickle
-from .dummy import DT
+import pandas as pd
 
+DT={
+"accomodates" : "2",
+"bathrooms" : "1.0",
+"bedrooms" : "1",
+"beds" : "4",
+"bed_type": "Pull-out Sofa",
+"instant_bookable" : "1",
+"minimum_nights" : "3",
+"neighborhood" : "Friedrichshain-Kreuzberg",
+"room_type" : "Entire home/apt",
+"wifi" : "0"
+}
 
 """create and configures an instance of a flask app"""
 app = Flask(__name__)
@@ -24,16 +36,16 @@ def root():
 def request_data():
     #data = request.get_json()
     data = DT
-    accomodates = data.accomodates
-    bathrooms = data.bathrooms
-    bedrooms = data.bedrooms
-    beds = data.beds
-    bed_type = data.bed_type
-    instant_bookable = data.instant_bookable
-    minimum_nights = data.minimum_nights
-    neighborhood = data.neighborhood
-    room_type = data.room_type
-    wifi = data.wifi
+    accomodates = data['accomodates']
+    bathrooms = data['bathrooms']
+    bedrooms = data['bedrooms']
+    beds = data['beds']
+    bed_type = data['bed_type']
+    instant_bookable = data['instant_bookable']
+    minimum_nights = data['minimum_nights']
+    neighborhood = data['neighborhood']
+    room_type = data['room_type']
+    wifi = data['wifi']
     security_deposit = 0
     cleaning_fee = 10
     features= {'accomodates':accomodates,'bathrooms':bathrooms, 'bedrooms':bedrooms,
@@ -41,7 +53,7 @@ def request_data():
                 'minimum_nights':minimum_nights, 'neighborhood':neighborhood,
                 'room_type':room_type,'wifi':wifi, 'security_deposit':security_deposit,
                 'cleaning_fee':cleaning_fee}
-    predict_data = pd.DataFrame.from_dict(features)
+    predict_data = pd.DataFrame(features, index = [1])
     features_encoder = encoder.transform(predict_data)
     prediction = model.predict(features_encoder)
     return jsonify({ 'prediction' : prediction[0] })
