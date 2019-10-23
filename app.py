@@ -36,7 +36,7 @@ def request_data():
 
     # Non-default values. Needs to have user input or breaks the app.
     # TODO Accomodate has a spelling error. Needs to be changed to "accommodate".
-    accommodates = data['accomodates']
+    accomodates = data['accomodates']
     bathrooms = data['bathrooms']
     bedrooms = data['bedrooms']
     beds = data['beds']
