@@ -7,40 +7,39 @@ import pickle as p
 
 
 """create and configures an instance of a flask app"""
-APP = Flask(__name__)
-APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-DB = SQLAlchemy(APP)
+app = Flask(__name__)
 
+encoder = pickle.load(open('encoder.pkl','rb'))
+model = pickle.load('model.pkl')
 
-@APP.route('/')
+@app.route('/')
 def root():
     message = 'welcome home'
     return render_template('base.html', message=message)
 
-@APP.route('/request')
+@app.route('/request')
 def request_data():
-    return "Requesting data"
+    data = request.get_json()
+    accomodates = data.accomodates
+    bathrooms = data.bathrooms
+    bedrooms = data.bedrooms
+    beds = data.beds
+    bed_type = data.bed_type
+    instant_bookable = data.instant_bookable
+    minimum_nights = data.minimum_nights
+    neighborhood = data.neighborhood
+    room_type = data.room_type
+    wifi = data.wifi
+    security_deposit = 0
+    cleaning_fee = 10
+    features= {'accomodates':accomodates,'bathrooms':bathrooms, 'bedrooms':bedrooms,
+                'beds': beds, 'bed_type':bed_type, 'instant_bookable':instant_bookable,
+                'minimum_nights':minimum_nights, 'neighborhood':neighborhood,
+                'room_type':room_type,'wifi':wifi, 'security_deposit':security_deposit,
+                'cleaning_fee':cleaning_fee}
 
-@APP.route('/predictor')
-def predictor():
-    prediction= 3
-    return render_template('predictor.html', parameter = prediction)
-
-# Here lies the dummy data.
-@APP.route('/dummy')
-def dummy_data():
-    with open('dummy.json', 'r') as f:
-        dummy = json.load(f)
-    return dummy
-
-@APP.route('/topredict')
-def request_info():
-    url = "http://127.0.0.1:5000/dummy"
-    response = urllib.request.urlopen(url)
-    data = json.loads(response.read())
-    return data
 
 # Above lies the dummy data.
 
 if __name__ == '__main__':
-    APP.run(debug=True)
+    app.run(debug=True)
