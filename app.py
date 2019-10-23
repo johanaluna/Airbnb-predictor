@@ -34,8 +34,8 @@ def root():
 
 @app.route('/request', methods=['GET', 'POST'])
 def request_data():
-    #data = request.get_json()
-    data = DT
+    data = request.get_json()
+    #data = DT
     accomodates = data['accomodates']
     bathrooms = data['bathrooms']
     bedrooms = data['bedrooms']
