@@ -11,6 +11,7 @@ pandas = "*"
 category-encoders = "*"
 flask = "*"
 flask-sqlalchemy = "*"
+unicorn = "*"
 
 [requires]
 python_version = "3.7"
