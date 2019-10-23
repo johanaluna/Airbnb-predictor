@@ -1,18 +1,18 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-
 import urllib.request
 import json
-import pickle as p
+import pickle
 
 
 """create and configures an instance of a flask app"""
 app = Flask(__name__)
 
 encoder = pickle.load(open('encoder.pkl','rb'))
-model = pickle.load('model.pkl')
 
-@app.route('/')
+model = pickle.load(open('model.pkl','rb'))
+
+@app.route('/', methods=['GET', 'POST'])
 def root():
     message = 'welcome home'
     return render_template('base.html', message=message)
@@ -37,6 +37,7 @@ def request_data():
                 'minimum_nights':minimum_nights, 'neighborhood':neighborhood,
                 'room_type':room_type,'wifi':wifi, 'security_deposit':security_deposit,
                 'cleaning_fee':cleaning_fee}
+    predict_data= pd.DataFrame.from_dict(features)
 
 
 # Above lies the dummy data.
