@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import urllib.request
 import json
 import pickle
+from .dummy import DT
 
 
 """create and configures an instance of a flask app"""
@@ -13,13 +14,16 @@ encoder = pickle.load(open('encoder.pkl','rb'))
 model = pickle.load(open('model.pkl','rb'))
 
 @app.route('/', methods=['GET', 'POST'])
+
 def root():
+
     message = 'welcome home'
     return render_template('base.html', message=message)
 
-@app.route('/request')
+@app.route('/request', methods=['GET', 'POST'])
 def request_data():
-    data = request.get_json()
+    #data = request.get_json()
+    data = DT
     accomodates = data.accomodates
     bathrooms = data.bathrooms
     bedrooms = data.bedrooms
@@ -37,7 +41,10 @@ def request_data():
                 'minimum_nights':minimum_nights, 'neighborhood':neighborhood,
                 'room_type':room_type,'wifi':wifi, 'security_deposit':security_deposit,
                 'cleaning_fee':cleaning_fee}
-    predict_data= pd.DataFrame.from_dict(features)
+    predict_data = pd.DataFrame.from_dict(features)
+    features_encoder = encoder.transform(predict_data)
+    prediction = model.predict(features_encoder)
+    return jsonify({ 'prediction' : prediction[0] })
 
 
 # Above lies the dummy data.
