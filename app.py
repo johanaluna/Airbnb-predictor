@@ -50,7 +50,7 @@ def request_data():
     security_deposit = 0
     cleaning_fee = 10
 
-    features = {'accomodates': accommodates, 'bathrooms': bathrooms, 'bedrooms': bedrooms,
+    features = {'accomodates': accomodates, 'bathrooms': bathrooms, 'bedrooms': bedrooms,
                 'beds': beds, 'bed_type': bed_type, 'instant_bookable': instant_bookable,
                 'minimum_nights': minimum_nights, 'neighborhood': neighborhood,
                 'room_type': room_type, 'wifi': wifi, 'security_deposit': security_deposit,
