@@ -32,7 +32,7 @@ def request_data():
        :return: JSON file.
     """
     data = request.get_json()
-
+    print('******* this is dta',data)
     # Non-default values. Needs to have user input or breaks the app.
     # TODO Accomodate has a spelling error. Needs to be changed to "accommodate".
     accomodates = data['accomodates']
