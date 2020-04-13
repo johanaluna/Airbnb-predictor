@@ -1,11 +1,49 @@
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../static/css/main.css">
+    
+    <title>Airbnb</title>
   </head>
-
-  <body>
-    <h1>your price is {{parameter}}</h1>
+  <body class="is-preload">
+    <nav id="nav">
+      <ul class="container">
+        <li><a href="https://johanaluna.com">Portfolio</a></li>
+        <li><a href="#contact">Airbnb Predictor</a></li>
+        <!-- <li><a href="documents/Resume2-2.pdf" > RESUME</a></li> -->
+      </ul>
+    </nav>
+    <article id="top" class="wrapper style1">
+      <div class="container">
+        <div class="row">
+            <div class="col-4 col-5-large col-12-medium">
+                <span class="image fit"><img src="../static/images/4.png" alt="" /></span>
+            </div>
+            <div class="col-8 col-7-large col-12-medium">
+              <header>
+                <h1><strong>Airbnb Predictor</strong></h1>
+              </header>
+              <p> <strong>Awsome </strong> your prediction is ready!<br>
+              </p>
+                <h1>Your price is: $ {{res[0]}}</h1>
+              <br><br>
+            </div>
+            <div style="text-align:center;">
+              <button class="btn" onclick="goBack()" style="width: 100px;margin-left: 50%;">Go Back</button>
+              <script>
+                function goBack() {
+                  window.history.back();
+                }
+                </script>
+            </div>
+        </div>
+    </div>
+    </article>
+   
   </body>
 </html>
+

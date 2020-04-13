@@ -26,25 +26,23 @@ def root():
     return render_template('base.html', message=message)
 
 
-@app.route('/request', methods=['GET', 'POST'])
+@app.route('/request')
 def request_data():
     """Gets data in JSON format and runs it through the model.
        :return: JSON file.
     """
-    data = request.get_json()
-    print('******* this is dta',data)
     # Non-default values. Needs to have user input or breaks the app.
     # TODO Accomodate has a spelling error. Needs to be changed to "accommodate".
-    accomodates = data['accomodates']
-    bathrooms = data['bathrooms']
-    bedrooms = data['bedrooms']
-    beds = data['beds']
-    bed_type = data['bed_type']
-    instant_bookable = data['instant_bookable']
-    minimum_nights = data['minimum_nights']
-    neighborhood = data['neighborhood']
-    room_type = data['room_type']
-    wifi = data['wifi']
+    accomodates = [int(request.args.get('accomodates'))]
+    bathrooms = [float(request.args.get('bathrooms'))]
+    bedrooms = [float(request.args.get('bedrooms'))]
+    beds = [float(request.args.get('beds'))]
+    bed_type = [int(request.args.get('bed_type'))]
+    instant_bookable = [int(request.args.get('instant_bookable'))]
+    minimum_nights = [int(request.args.get('minimum_nights'))]
+    neighborhood = [int(request.args.get('neighborhood'))]
+    room_type = [int(request.args.get('room_type'))]
+    wifi = [int(request.args.get('wifi'))]
 
     # Defaulted values
     security_deposit = 0
@@ -64,7 +62,8 @@ def request_data():
     prediction = model.predict(features_encoder)
 
     # Returns prediction in a JSON format and within, a float.
-    return jsonify({'prediction': prediction[0]})
+    res =  [format(prediction[0], '.2f'),features]
+    return (render_template('predictor.html', res=res))
 
 
 if __name__ == '__main__':
