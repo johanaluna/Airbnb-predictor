@@ -1,5 +1,4 @@
-# Data-Engineering
+# AirBnB Predictor
 
-## Included
-Using the functions we create the optimal
-price for a AirBnB location in Berlin.
+Deployed on Heroku, AirBnB Predictor uses a linear regression model to predict an optimal pricing strategy 
+for an AirBnB in Berlin [Check App] (https://airbnb2020.herokuapp.com).
